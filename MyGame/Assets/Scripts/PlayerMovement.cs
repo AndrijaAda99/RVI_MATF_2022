@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] Rigidbody rigidbody;
+    [SerializeField] Camera cam;
     [SerializeField, Range(1f, 5f)] float speed = 0.2f;
     private float horizontal;
     private float vertical;
@@ -40,7 +41,18 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
 
-        Move();        
+        Move();
+        Rotate();        
+    }
+
+    void Rotate()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity)) 
+        {
+            transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+        }
     }
 
     void GetInput()

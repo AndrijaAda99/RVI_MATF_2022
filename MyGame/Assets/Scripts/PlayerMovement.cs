@@ -6,7 +6,8 @@ using System;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField, Range(1f, 5f)] private float speed = 0.2f;
+    [SerializeField] Rigidbody rigidbody;
+    [SerializeField, Range(1f, 5f)] float speed = 0.2f;
     private float horizontal;
     private float vertical;
 
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         Vector3 changeInPosition = new Vector3(horizontal, 0f, vertical);
-        transform.Translate(speed * changeInPosition * Time.deltaTime);
+        Vector3 goToPosition = transform.position + changeInPosition * speed * Time.deltaTime;
+        rigidbody.MovePosition(goToPosition);
     }
 }

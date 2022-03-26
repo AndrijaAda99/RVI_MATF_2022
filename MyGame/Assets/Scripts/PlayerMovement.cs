@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody rigidbody;
     [SerializeField] Camera cam;
     [SerializeField, Range(1f, 5f)] float speed = 0.2f;
+    [SerializeField] Weapon weapon;
+
     private float horizontal;
     private float vertical;
 
@@ -43,6 +45,14 @@ public class PlayerMovement : MonoBehaviour
 
         Move();
         Rotate();        
+
+        if (Input.GetMouseButton(0))
+        {
+            if (weapon != null)
+            {
+                weapon.Shoot();
+            }
+        }
     }
 
     void Rotate()

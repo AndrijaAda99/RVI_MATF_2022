@@ -14,7 +14,6 @@ public class Gun : Weapon
             tmpBullet.Setup(demage);
             
             lastTimeShoot = Time.time;
-            Debug.Log("pucaj");
         }
     }
 

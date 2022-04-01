@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour, IDamagable
 {
-    private int health;
+    [SerializeField] int health;
 
     public int Health() { get: { return health; } }
 

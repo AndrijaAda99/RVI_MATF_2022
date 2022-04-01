@@ -5,11 +5,11 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    private int demage;
+    private int damage;
 
-    public void Setup(int demage)
+    public void Setup(int damage)
     {
-        this.demage = demage;
+        this.damage = damage;
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
 
@@ -17,6 +17,15 @@ public class Bullet : MonoBehaviour
     {
         if (other != null) {
             Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+
+        if (other.tag == "Enemy") {
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);    
         }
     }
 

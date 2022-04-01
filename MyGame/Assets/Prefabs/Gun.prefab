@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rateOfFire: 0.2
   tipOfWeapon: {fileID: 4600663023737386905}
-  demage: 10
+  damage: 20
   lastTimeShoot: 0
   bullet: {fileID: 1770969967005422477, guid: 1f3bd01f916f4f94784b9e65ddb17cef, type: 3}
 --- !u!1 &4600663023737386886

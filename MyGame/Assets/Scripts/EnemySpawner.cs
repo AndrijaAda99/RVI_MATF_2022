@@ -5,17 +5,34 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     List<GameObject> spawnedEnemies;
+
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] List<Vector3> spawnPoints;
+    [SerializeField] List<Transform> spawnPoints;
     [SerializeField] int numberOfEnemies;
+    [SerializeField] int spawnTime;
+
+    private Coroutine spawnCoroutine;
     
-    public GameObject SpawnEnemy()
+    public IEnumerator SpawnCoroutine(int timeForSpawn)
     {
-        int randomIndex = Random.Range(0, spawnPoints.Capacity);
-        GameObject enemy = Instantiate(enemyPrefab);
-        enemy.transform.position = spawnPoints[randomIndex];
-        enemy.GetComponent<Enemy>().player = GameObject.Find("Player");
-        return enemy;
+        System.Random randomIndex = new System.Random();
+
+        while (true)
+        {
+            int index = randomIndex.Next(0, spawnPoints.Count);
+            Vector3 spawnPosition = spawnPoints[index].position;
+
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            spawnedEnemies.Add(enemy);
+            
+            if (spawnedEnemies.Count > numberOfEnemies) {
+                yield break;
+            }
+
+            yield return new WaitForSecondsRealtime(timeForSpawn);
+        }
+        
     }
 
     void Awake()
@@ -25,10 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < numberOfEnemies; i++)
-        {    
-            spawnedEnemies.Add(SpawnEnemy());   
-        }
+        StartCoroutine(SpawnCoroutine(spawnTime));
     }
 
     void Update()
